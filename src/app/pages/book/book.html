@@ -1,0 +1,60 @@
+<div class="p-6">
+  <div class="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+    <h2 class="text-title-md2 font-semibold text-black dark:text-white">Livros</h2>
+  </div>
+  <div class="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+    <h5 class="text-title-md2 text-black dark:text-white whitespace-nowrap">Selecione um autor</h5>
+    <select
+      id="autor"
+      (change)="onAuthorChange($event)"
+      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
+    >
+      <option value="" disabled selected>Selecione um autor</option>
+      @for (author of authors(); track author.id) {
+      <option [value]="author.id">{{ author.name }}</option>
+      }
+    </select>
+    <button
+      id="add-button"
+      (click)="openAddModal()"
+      [disabled]="!isAddButtonEnable()"
+      class="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 20 20"
+        fill="currentColor"
+        class="w-5 h-5"
+      >
+        <path
+          d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z"
+        />
+      </svg>
+      Novo
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        class="size-6"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25"
+        />
+      </svg>
+    </button>
+  </div>
+
+  <div class="h-[600px] mt-6">
+    <app-data-grid [data]="books()" [columns]="columns()"></app-data-grid>
+  </div>
+
+  @if (isModalOpen()) {
+  <app-modal [isOpen]="isModalOpen()" title="Editar Autor" (close)="closeModal()">
+    <form [formGroup]="bookForm" class="space-y-4" (ngSubmit)="saveBook()"></form>
+  </app-modal>
+  }
+</div>

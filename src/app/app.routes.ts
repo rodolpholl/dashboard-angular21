@@ -8,13 +8,16 @@ export const routes: Routes = [
     children: [
       {
         path: 'parameters',
-        loadComponent: () => import('./pages/parameters/parameters').then(m => m.Parameters)
+        loadComponent: () => import('./pages/parameters/parameters').then((m) => m.Parameters),
       },
       {
         path: 'authors',
-        loadComponent: () => import('./pages/author/author').then(m => m.Author)
-
-      }
-    ]
-  }
+        loadComponent: () => import('./pages/author/author').then((m) => m.Author),
+      },
+      {
+        path: 'books',
+        loadComponent: () => import('./pages/book/book').then((m) => m.Book),
+      },
+    ],
+  },
 ];
